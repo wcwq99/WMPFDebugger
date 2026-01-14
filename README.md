@@ -94,8 +94,9 @@ npx ts-node src/index.ts
 ## Additional Resources
 
 - **[AI Integration Guide](AI_INTEGRATION.md)** - Integrate with AI_JS_DEBUGGER for AI-powered reverse engineering
-- **[Architecture Documentation](ARCHITECTURE.md)** - System architecture and data flow diagrams
 - **[Quick Start Guide](QUICKSTART.md)** - Quick reference for common tasks and troubleshooting
+- **[FAQ](FAQ.md)** - Frequently asked questions and answers
+- **[Architecture Documentation](ARCHITECTURE.md)** - System architecture and data flow diagrams
 - **[Extension Guide](EXTENSION.md)** - Debug WeChat embedded browser pages
 - **[Adaptation Guide](ADAPTATION.md)** - Adapt to new WMPF versions
 
