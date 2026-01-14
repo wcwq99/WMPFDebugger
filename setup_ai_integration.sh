@@ -52,7 +52,13 @@ if ! command -v python3 &> /dev/null; then
     echo -e "${RED}Error: Python 3 is not installed. Please install Python 3.11+${NC}"
     exit 1
 fi
-echo -e "${GREEN}✓ Python found: $(python3 --version)${NC}"
+PYTHON_VERSION=$(python3 --version | cut -d' ' -f2)
+PYTHON_MAJOR=$(echo $PYTHON_VERSION | cut -d'.' -f1)
+PYTHON_MINOR=$(echo $PYTHON_VERSION | cut -d'.' -f2)
+echo -e "${GREEN}✓ Python found: $PYTHON_VERSION${NC}"
+if [ "$PYTHON_MAJOR" -lt 3 ] || ([ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -lt 11 ]); then
+    echo -e "${YELLOW}Warning: Python 3.11+ is recommended. Current version: $PYTHON_VERSION${NC}"
+fi
 
 # Check yarn installation
 if ! command -v yarn &> /dev/null; then

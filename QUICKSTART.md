@@ -6,9 +6,11 @@
 ```bash
 # Check versions
 node --version  # Need v22+
-python3 --version  # Need 3.11+
+python3 --version  # Need 3.11+ (use 'python' on Windows)
 yarn --version
 ```
+
+> **Note:** On Windows, use `python` instead of `python3`. On Linux/Mac, use `python3`.
 
 ### One-Time Setup
 ```bash
@@ -38,7 +40,7 @@ npx ts-node src/index.ts
 
 # Terminal 2: Start AI_JS_DEBUGGER  
 cd AI_JS_DEBUGGER
-python3 run_flask.py
+python3 run_flask.py  # Use 'python' on Windows
 
 # Open browser: http://localhost:5001
 ```

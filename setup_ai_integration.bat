@@ -57,6 +57,12 @@ if %errorlevel% neq 0 (
 for /f "tokens=*" %%i in ('python --version') do set PYTHON_VERSION=%%i
 echo [OK] Python found: %PYTHON_VERSION%
 
+REM Check Python version (3.11+)
+for /f "tokens=2 delims=. " %%a in ('python --version 2^>^&1') do set PY_MINOR=%%a
+if %PY_MINOR% LSS 11 (
+    echo [!] Warning: Python 3.11+ is recommended. Current version: %PYTHON_VERSION%
+)
+
 REM Check yarn installation
 where yarn >nul 2>nul
 if %errorlevel% neq 0 (
