@@ -46,6 +46,8 @@ Version histories:
 
 To debug web pages of WeChat embedded browser, please refer to [EXTENSION.md](EXTENSION.md). Note that this feature has many limitations currently and is simply a basic workaround.
 
+**For AI-powered automatic reverse engineering of miniapps**, see [AI_INTEGRATION.md](AI_INTEGRATION.md) for instructions on integrating with [AI_JS_DEBUGGER](https://github.com/Valerian7/AI_JS_DEBUGGER).
+
 To check your installed version, navigate to Task Manager -> WeChatAppEx -> Right click -> Open file location -> Check the number between `RadiumWMPF` and `extracted`.
 
 To adapt to another version, please find the instructions in [ADAPTATION.md](ADAPTATION.md). Alternatively, you can submit an issue for new version adaption and I will try that if I have the binary. Note that only newer version adaption requests will be considered.

@@ -1,0 +1,143 @@
+# Example configuration file for AI_JS_DEBUGGER integration
+# Copy this file to your AI_JS_DEBUGGER directory as config.yaml and modify accordingly
+#
+# For complete AI_JS_DEBUGGER setup instructions, see:
+# https://github.com/Valerian7/AI_JS_DEBUGGER
+
+# CDP Configuration
+cdp:
+  # Connect to WMPFDebugger's CDP endpoint
+  # This should match the CDP_PORT in WMPFDebugger/src/index.ts (default: 62000)
+  debug_url: "ws://127.0.0.1:62000"
+  
+  # Set to false since WMPFDebugger manages the connection
+  auto_connect: false
+  
+  # Browser type (optional, not used when connecting to WMPFDebugger)
+  browser_type: "chrome"
+
+# AI Model Configuration
+ai:
+  # Your AI API key
+  # Supports OpenAI-compatible APIs: GPT, Claude, Qwen, DeepSeek, etc.
+  api_key: "your-api-key-here"
+  
+  # API endpoint
+  # Examples:
+  # - OpenAI: https://api.openai.com/v1
+  # - Claude (via OpenAI proxy): https://api.anthropic.com/v1
+  # - Qwen: https://dashscope.aliyuncs.com/compatible-mode/v1
+  # - DeepSeek: https://api.deepseek.com/v1
+  api_base: "https://api.openai.com/v1"
+  
+  # Model name
+  # Examples: gpt-4, gpt-3.5-turbo, claude-3-opus, qwen-max, deepseek-chat
+  model: "gpt-4"
+  
+  # Temperature for AI responses (0.0-1.0)
+  temperature: 0.7
+  
+  # Maximum tokens for AI response
+  max_tokens: 2000
+
+# Debugging Configuration
+debug:
+  # XHR breakpoint mode (recommended for API analysis)
+  xhr_breakpoint: true
+  
+  # XHR filter (optional)
+  # Only break on XHR requests matching this pattern
+  # Leave empty to break on all XHR requests
+  xhr_filter: ""
+  
+  # File breakpoint configuration
+  file_breakpoint:
+    # Enable file breakpoint mode
+    # Set to true if you want to break on specific JS file/line
+    enabled: false
+    
+    # Target file URL (example for miniapp)
+    # You can find this in Chrome DevTools Sources panel
+    file_url: ""
+    
+    # Line number (0-indexed)
+    line: 0
+    
+    # Column number (0-indexed)
+    column: 0
+  
+  # Automatic call stack backtracing
+  # When enabled, automatically traces back to the top-level caller
+  auto_backtrace: true
+  
+  # Maximum backtrace depth
+  max_backtrace_depth: 10
+  
+  # Timeout for debugging operations (seconds)
+  timeout: 60
+
+# Hook Configuration
+hooks:
+  # Enable encryption hook
+  # Automatically hooks common encryption functions (AES, RSA, etc.)
+  encryption_hook: true
+  
+  # Enable XHR hook
+  # Hooks XMLHttpRequest to capture requests
+  xhr_hook: true
+  
+  # Enable Fetch hook
+  fetch_hook: true
+  
+  # Custom hook scripts (advanced)
+  custom_hooks: []
+
+# Analysis Configuration
+analysis:
+  # Enable automatic algorithm analysis
+  auto_analysis: true
+  
+  # Generate mitmproxy script
+  generate_mitm_script: true
+  
+  # Output directory for reports
+  output_dir: "./reports"
+  
+  # Report format
+  report_format: "markdown"  # Options: markdown, json, html
+
+# Logging Configuration
+logging:
+  # Log level: debug, info, warning, error
+  level: "info"
+  
+  # Log to file
+  log_to_file: true
+  
+  # Log file path
+  log_file: "./logs/ai_debugger.log"
+
+# Flask Server Configuration
+server:
+  # Web interface host
+  host: "127.0.0.1"
+  
+  # Web interface port
+  port: 5001
+  
+  # Enable debug mode
+  debug: false
+
+# Advanced Configuration
+advanced:
+  # Retry attempts for failed operations
+  retry_attempts: 3
+  
+  # Delay between retries (seconds)
+  retry_delay: 2
+  
+  # Enable verbose output
+  verbose: false
+  
+  # Maximum concurrent debugging sessions
+  max_concurrent_sessions: 1
