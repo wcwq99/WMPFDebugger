@@ -58,18 +58,17 @@ for /f "tokens=*" %%i in ('python --version') do set PYTHON_VERSION=%%i
 echo [OK] Python found: %PYTHON_VERSION%
 
 REM Check Python version (3.11+)
-REM Extract major and minor version from "Python 3.11.x" format
-for /f "tokens=2 delims= " %%a in ('python --version 2^>^&1') do (
+REM Extract version from "Python 3.11.x" format and check if minor >= 11
+for /f "tokens=2" %%a in ('python --version 2^>^&1') do (
     for /f "tokens=1,2 delims=." %%b in ("%%a") do (
-        set PY_MAJOR=%%b
-        set PY_MINOR=%%c
-    )
-)
-if defined PY_MAJOR if defined PY_MINOR (
-    if %PY_MAJOR% LSS 3 (
-        echo [!] Warning: Python 3.11+ is recommended. Current version: %PYTHON_VERSION%
-    ) else if %PY_MAJOR% EQU 3 if %PY_MINOR% LSS 11 (
-        echo [!] Warning: Python 3.11+ is recommended. Current version: %PYTHON_VERSION%
+        if %%b EQU 3 (
+            if %%c LSS 11 (
+                echo [!] Warning: Python 3.11+ is recommended. Current version: %PYTHON_VERSION%
+            )
+        )
+        if %%b LSS 3 (
+            echo [!] Warning: Python 3.11+ is recommended. Current version: %PYTHON_VERSION%
+        )
     )
 )
 
