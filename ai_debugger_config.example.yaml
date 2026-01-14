@@ -25,9 +25,9 @@ ai:
   # API endpoint
   # Examples:
   # - OpenAI: https://api.openai.com/v1
-  # - Claude (via OpenAI proxy): https://api.anthropic.com/v1
   # - Qwen: https://dashscope.aliyuncs.com/compatible-mode/v1
   # - DeepSeek: https://api.deepseek.com/v1
+  # Note: For Claude, you may need an OpenAI-compatible proxy or modify AI_JS_DEBUGGER to support native Claude API
   api_base: "https://api.openai.com/v1"
   
   # Model name
