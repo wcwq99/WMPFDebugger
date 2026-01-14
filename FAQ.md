@@ -153,6 +153,29 @@ Never commit this file to git! It's already in `.gitignore`.
 3. Try a different API provider
 4. Wait if you've hit rate limits
 
+### Q: "Connection error" or "InternalServerError" with AI API
+**A:** This usually means AI_JS_DEBUGGER cannot reach the AI API endpoint:
+
+**For SiliconFlow or other alternative providers:**
+1. Check if AI_JS_DEBUGGER uses environment variables instead of config.yaml:
+   ```bash
+   export OPENAI_API_KEY="your-key"
+   export OPENAI_API_BASE="https://api.siliconflow.cn/v1"
+   export OPENAI_MODEL="deepseek-ai/DeepSeek-V3.2"
+   ```
+2. Verify the API endpoint URL is correct
+3. Test the API directly with curl:
+   ```bash
+   curl -X POST https://api.siliconflow.cn/v1/chat/completions \
+     -H "Authorization: Bearer your-key" \
+     -H "Content-Type: application/json" \
+     -d '{"model":"deepseek-ai/DeepSeek-V3.2","messages":[{"role":"user","content":"test"}]}'
+   ```
+4. Check AI_JS_DEBUGGER logs for detailed error messages
+5. Ensure your network can reach the API endpoint (not blocked by firewall/proxy)
+
+**Note:** This is an AI_JS_DEBUGGER configuration issue, not a WMPFDebugger issue. WMPFDebugger only provides the CDP proxy.
+
 ### Q: AI analysis produces poor results
 **A:**
 1. **Try a better model:** Switch from GPT-3.5 to GPT-4

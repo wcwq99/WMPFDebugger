@@ -94,6 +94,15 @@ debug:
     column: 0
 ```
 
+> **Note for Alternative API Providers:** Some APIs (like SiliconFlow) may require environment variables instead of config.yaml:
+> ```bash
+> export OPENAI_API_KEY="your-key"
+> export OPENAI_API_BASE="https://api.siliconflow.cn/v1"
+> export OPENAI_MODEL="deepseek-ai/DeepSeek-V3.2"
+> python3 run_flask.py
+> ```
+> Check AI_JS_DEBUGGER's documentation for the correct configuration method.
+
 ### Usage
 
 #### Step 1: Start WMPFDebugger
@@ -323,6 +332,15 @@ debug:
     line: 0
     column: 0
 ```
+
+> **其他 API 提供商说明：** 某些 API（如 SiliconFlow）可能需要使用环境变量而不是 config.yaml：
+> ```bash
+> export OPENAI_API_KEY="your-key"
+> export OPENAI_API_BASE="https://api.siliconflow.cn/v1"
+> export OPENAI_MODEL="deepseek-ai/DeepSeek-V3.2"
+> python3 run_flask.py
+> ```
+> 请查看 AI_JS_DEBUGGER 的文档以了解正确的配置方法。
 
 ### 使用方法
 

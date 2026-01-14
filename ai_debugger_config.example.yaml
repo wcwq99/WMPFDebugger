@@ -27,11 +27,17 @@ ai:
   # - OpenAI: https://api.openai.com/v1
   # - Qwen: https://dashscope.aliyuncs.com/compatible-mode/v1
   # - DeepSeek: https://api.deepseek.com/v1
+  # - SiliconFlow: https://api.siliconflow.cn/v1
   # Note: For Claude, you may need an OpenAI-compatible proxy or modify AI_JS_DEBUGGER to support native Claude API
+  # Note: Some APIs may require environment variables instead of config file settings
   api_base: "https://api.openai.com/v1"
   
   # Model name
-  # Examples: gpt-4, gpt-3.5-turbo, claude-3-opus, qwen-max, deepseek-chat
+  # Examples: 
+  # - OpenAI: gpt-4, gpt-3.5-turbo
+  # - Qwen: qwen-max, qwen-plus
+  # - DeepSeek: deepseek-chat
+  # - SiliconFlow: deepseek-ai/DeepSeek-V3.2, Qwen/Qwen2.5-72B-Instruct
   model: "gpt-4"
   
   # Temperature for AI responses (0.0-1.0)
