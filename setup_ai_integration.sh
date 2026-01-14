@@ -17,7 +17,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Check if we're in the WMPFDebugger directory
-if [ ! -f "package.json" ] || ! grep -q "WMPFDebugger" package.json; then
+if [ ! -f "package.json" ] || ! grep -q '"name"[[:space:]]*:[[:space:]]*"WMPFDebugger"' package.json; then
     echo -e "${RED}Error: This script must be run from the WMPFDebugger directory${NC}"
     exit 1
 fi

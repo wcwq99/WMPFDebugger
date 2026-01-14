@@ -14,6 +14,11 @@ if not exist package.json (
     echo Error: package.json not found. This script must be run from the WMPFDebugger directory
     exit /b 1
 )
+findstr /C:"\"name\"" /C:"WMPFDebugger" package.json >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Error: Not in WMPFDebugger directory. This script must be run from the WMPFDebugger directory
+    exit /b 1
+)
 
 set WMPF_DIR=%CD%
 set AI_DEBUGGER_DIR=..\AI_JS_DEBUGGER
@@ -43,6 +48,7 @@ for /f "tokens=*" %%i in ('node --version') do set NODE_VERSION=%%i
 echo [OK] Node.js found: %NODE_VERSION%
 
 REM Check Python installation
+REM Note: On Windows, 'python' is the standard command (not 'python3')
 where python >nul 2>nul
 if %errorlevel% neq 0 (
     echo Error: Python is not installed. Please install Python 3.11+
