@@ -88,6 +88,14 @@ npx ts-node src/index.ts
 
 ![Sources in DevTools](screenshots/sources.png)
 
+## 附加资源
+
+- **[AI 集成指南](AI_INTEGRATION.md)** - 与 AI_JS_DEBUGGER 集成实现 AI 自动化逆向分析
+- **[架构文档](ARCHITECTURE.md)** - 系统架构和数据流程图
+- **[快速入门指南](QUICKSTART.md)** - 常见任务和故障排除快速参考
+- **[扩展指南](EXTENSION.md)** - 调试微信内置浏览器页面
+- **[适配指南](ADAPTATION.md)** - 适配新的 WMPF 版本
+
 ## 免责声明
 
 **本库只能作为学习用途，造成的任何问题与本库开发者无关，如侵犯到你的权益，请联系删除**
