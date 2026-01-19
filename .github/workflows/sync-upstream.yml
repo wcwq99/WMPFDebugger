@@ -48,13 +48,17 @@ jobs:
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
           git checkout -b $BRANCH_NAME
           
-          # Merge upstream changes
-          git merge upstream/$DEFAULT_BRANCH --no-edit || {
-            echo "Merge conflict detected, creating PR for manual resolution"
-            git merge --abort
-            git merge upstream/$DEFAULT_BRANCH --no-commit --no-ff
-            git commit -m "Sync with upstream evi0s/WMPFDebugger"
-          }
+          # Try to merge upstream changes
+          if git merge upstream/$DEFAULT_BRANCH --no-edit; then
+            echo "Merge successful"
+            echo "merge_status=success" >> $GITHUB_OUTPUT
+          else
+            # Merge has conflicts, commit as-is for manual resolution
+            echo "Merge conflicts detected, committing for manual resolution"
+            git add -A
+            git commit -m "Sync with upstream evi0s/WMPFDebugger (conflicts need resolution)"
+            echo "merge_status=conflict" >> $GITHUB_OUTPUT
+          fi
           
           # Push the branch
           git push origin $BRANCH_NAME
@@ -69,7 +73,10 @@ jobs:
           body: |
             This PR syncs the latest changes from the upstream repository [evi0s/WMPFDebugger](https://github.com/evi0s/WMPFDebugger).
             
+            **Merge Status**: ${{ steps.sync.outputs.merge_status == 'conflict' && '⚠️ **Has conflicts - manual resolution required**' || '✅ Clean merge' }}
+            
             **Action Required**: Please review the changes and merge if everything looks good.
+            ${{ steps.sync.outputs.merge_status == 'conflict' && 'This PR contains merge conflicts that need to be resolved manually before merging.' || '' }}
             
             - Upstream commits have been merged
             - This is an automated sync from the upstream repository
@@ -79,3 +86,4 @@ jobs:
           labels: |
             sync-upstream
             automated
+            ${{ steps.sync.outputs.merge_status == 'conflict' && 'merge-conflict' || '' }}
