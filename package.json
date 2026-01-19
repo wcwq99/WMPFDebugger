@@ -8,7 +8,7 @@
     "dev": "npx ts-node src/index.ts",
     "build": "tsc",
     "package:win": "pkg dist/index.js --targets node22-win-x64 --output WMPFDebugger.exe",
-    "release": "yarn build && yarn package:win"
+    "release":  "yarn build && yarn package:win"
   },
   "bin": "dist/index.js",
   "pkg": {
@@ -19,11 +19,12 @@
     "assets": [
       "node_modules/bindings/**/*",
       "node_modules/frida/**/*",
-      "node_modules/**/*.node"
+      "node_modules/**/*.node",
+      "node_modules/**/package.json"
     ],
     "outputPath": "."
   },
-  "dependencies": {
+  "dependencies":  {
     "bindings": "^1.5.0",
     "frida": "^17.3.2",
     "protobufjs": "^7.5.4",
