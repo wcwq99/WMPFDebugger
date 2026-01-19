@@ -1,0 +1,47 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write  # Required to create releases and upload assets
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Build and package
+        run: yarn release
+      
+      - name: Create release archive
+        run: |
+          $version = "${{ github.ref_name }}"
+          $archiveName = "WMPFDebugger-$version-win-x64.zip"
+          Compress-Archive -Path WMPFDebugger.exe, frida, README.md, LICENSE -DestinationPath $archiveName
+          echo "ARCHIVE_NAME=$archiveName" >> $env:GITHUB_ENV
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{ env.ARCHIVE_NAME }}
+            WMPFDebugger.exe
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

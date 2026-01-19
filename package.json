@@ -4,6 +4,19 @@
   "main": "src/index.ts",
   "license": "GPL-2.0-only",
   "author": "evi0s",
+  "scripts": {
+    "dev": "npx ts-node src/index.ts",
+    "build": "tsc",
+    "package:win": "pkg dist/index.js --targets node22-win-x64 --output WMPFDebugger.exe",
+    "release": "yarn build && yarn package:win"
+  },
+  "bin": "dist/index.js",
+  "pkg": {
+    "assets": [
+      "frida/**/*"
+    ],
+    "outputPath": "."
+  },
   "dependencies": {
     "frida": "^17.3.2",
     "protobufjs": "^7.5.4",
@@ -12,6 +25,7 @@
   "devDependencies": {
     "@types/node": "^24.5.2",
     "@types/ws": "^8.18.1",
+    "pkg": "^5.8.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }
