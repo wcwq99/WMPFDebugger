@@ -12,12 +12,19 @@
   },
   "bin": "dist/index.js",
   "pkg": {
+    "scripts": [
+      "node_modules/bindings/**/*.js",
+      "node_modules/frida/**/*.js"
+    ],
     "assets": [
-      "frida/**/*"
+      "node_modules/bindings/**/*",
+      "node_modules/frida/**/*",
+      "node_modules/**/*.node"
     ],
     "outputPath": "."
   },
   "dependencies": {
+    "bindings": "^1.5.0",
     "frida": "^17.3.2",
     "protobufjs": "^7.5.4",
     "ws": "^8.18.3"
