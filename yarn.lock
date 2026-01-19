@@ -722,7 +722,7 @@ pkg-fetch@3.4.2:
 
 pkg@^5.8.1:
   version "5.8.1"
-  resolved "https://registry.yarnpkg.com/pkg/-/pkg-5.8.1.tgz#862020f3c0575638ef7d1146f951a54d65ddc984"
+  resolved "https://mirrors.cloud.tencent.com/npm/pkg/-/pkg-5.8.1.tgz#862020f3c0575638ef7d1146f951a54d65ddc984"
   integrity sha512-CjBWtFStCfIiT4Bde9QpJy0KeH19jCfwZRJqHFDFXfhUklCx8JoFmMj3wgnEYIwGmZVNkhsStPHEOnrtrQhEXA==
   dependencies:
     "@babel/generator" "7.18.2"
