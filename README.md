@@ -57,16 +57,43 @@ To upgrade to the latest WMPF (WeChat version < 4.x), type in `:showcmdwnd` in t
 
 ## Prerequisites
 
+### For End Users (Pre-built Executable)
+
+* Windows x64
+* chromium-based browsers (e.g., Chrome, Edge, etc.)
+
+### For Developers (Source Code)
+
 * node.js (requires at least LTS v22)
     - yarn
 * chromium-based browsers (e.g., Chrome, Edge, etc.)
 
 ## Quick Start
 
+### Option 1: Using Pre-built Executable (Recommended for End Users)
+
+**Step 1.** Download the latest release from [GitHub Releases](https://github.com/wcwq99/WMPFDebugger/releases).
+
+Extract `WMPFDebugger-vX.Y.Z-win-x64.zip` to a folder of your choice.
+
+**Step 2.** Open Command Prompt or PowerShell, navigate to the extracted folder, and run:
+
+```cmd
+WMPFDebugger.exe
+```
+
+> Note: After this step, you need to launch the miniapp BEFORE launching the devtools, otherwise you will probably need to kill the server and redo the steps 2 to 4 again.
+
+**Step 3.** Launch any miniapp you would like to debug.
+
+**Step 4.** Open your chromium-based browsers, navigate to `devtools://devtools/bundled/inspector.html?ws=127.0.0.1:62000` and profit.
+
+### Option 2: Running from Source (For Developers)
+
 **Step 1.** Clone this repo and install dependencies.
 
 ```bash
-git clone https://github.com/evi0s/WMPFDebugger
+git clone https://github.com/wcwq99/WMPFDebugger
 cd WMPFDebugger
 yarn
 ```
@@ -74,6 +101,8 @@ yarn
 **Step 2.** Run `src/index.ts` to launch debug server and proxy server, and inject hook script to miniapp runtime.
 
 ```bash
+yarn dev
+# or
 npx ts-node src/index.ts
 ```
 
@@ -82,6 +111,26 @@ npx ts-node src/index.ts
 **Step 3.** Launch any miniapp you would like to debug.
 
 **Step 4.** Open your chromium-based browsers, navigate to `devtools://devtools/bundled/inspector.html?ws=127.0.0.1:62000` and profit. You can change the CDP port `CDP_PORT` (62000 in this example) in `src/index.ts` to any port you like.
+
+## Building from Source
+
+To build the executable yourself:
+
+```bash
+# Install dependencies
+yarn
+
+# Build TypeScript to JavaScript
+yarn build
+
+# Package into Windows executable
+yarn package:win
+
+# Or do both in one command
+yarn release
+```
+
+This will generate `WMPFDebugger.exe` in the project root.
 
 ## Screenshots
 

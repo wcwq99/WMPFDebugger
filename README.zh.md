@@ -54,16 +54,43 @@
 
 ## 准备
 
+### 最终用户（预构建可执行文件）
+
+* Windows x64 系统
+* 基于 chromium 的浏览器，例如 Chrome, Edge 等等
+
+### 开发者（源代码运行）
+
 * node.js (需要至少 LTS v22)
     - yarn 包管理器
-* 基于的 chromium 浏览器，例如 Chrome, Edge, 等等
+* 基于 chromium 的浏览器，例如 Chrome, Edge 等等
 
 ## 使用
+
+### 方式 1：使用预构建可执行文件（推荐给最终用户）
+
+**第 1 步** 从 [GitHub Releases](https://github.com/wcwq99/WMPFDebugger/releases) 下载最新版本。
+
+将 `WMPFDebugger-vX.Y.Z-win-x64.zip` 解压到您选择的文件夹。
+
+**第 2 步** 打开命令提示符或 PowerShell，导航到解压的文件夹，然后运行：
+
+```cmd
+WMPFDebugger.exe
+```
+
+> 注意: 在这个步骤之后，你需要先启动小程序（第三步），再打开开发者工具（第四步）。如果操作顺序反了你可能需要从重新第二步开始
+
+**第 3 步** 打开任意你想调试的小程序
+
+**第 4 步** 打开浏览器，访问 `devtools://devtools/bundled/inspector.html?ws=127.0.0.1:62000` 即可。
+
+### 方式 2：从源代码运行（开发者）
 
 **第 1 步** 克隆并安装依赖
 
 ```bash
-git clone https://github.com/evi0s/WMPFDebugger
+git clone https://github.com/wcwq99/WMPFDebugger
 cd WMPFDebugger
 yarn
 ```
@@ -71,6 +98,8 @@ yarn
 **第 2 步** 运行 `src/index.ts`。该命令会启动调试服务器和 CDP 代理服务器，同时相关 hook 代码也会被自动注入到小程序运行时中
 
 ```bash
+yarn dev
+# 或者
 npx ts-node src/index.ts
 ```
 
@@ -79,6 +108,27 @@ npx ts-node src/index.ts
 **第 3 步** 打开任意你想调试的小程序
 
 **第 4 步** 打开浏览器，访问 `devtools://devtools/bundled/inspector.html?ws=127.0.0.1:62000` 即可。你也可以将 CDP 端口（在例子中为 62000）修改到任意其他端口。相关代码定义在 `src/index.ts` 中
+
+## 从源代码构建
+
+如果你想自己构建可执行文件：
+
+```bash
+# 安装依赖
+yarn
+
+# 编译 TypeScript 到 JavaScript
+yarn build
+
+# 打包成 Windows 可执行文件
+yarn package:win
+
+# 或者一键完成编译和打包
+yarn release
+```
+
+这将在项目根目录生成 `WMPFDebugger.exe`。
+
 
 ## 截图
 
