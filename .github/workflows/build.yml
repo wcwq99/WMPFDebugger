@@ -5,6 +5,8 @@ on:
     - cron: '0 8 * * *'  # 每天 UTC 8:00 (北京时间 16:00) 检查
   push:
     branches: [main]
+    tags:
+      - 'v*'  # 推送 v 开头的 tag 时触发
   workflow_dispatch:  # 支持手动触发
 
 jobs:
