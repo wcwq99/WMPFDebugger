@@ -1,0 +1,92 @@
+name: Sync Upstream
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # Required to push branches
+      pull-requests: write   # Required to create pull requests
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Sync with upstream
+        id: sync
+        run: |
+          # Add upstream remote
+          git remote add upstream https://github.com/evi0s/WMPFDebugger.git || true
+          git fetch upstream
+          
+          # Get the default branch name
+          DEFAULT_BRANCH=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+          echo "DEFAULT_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV
+          
+          # Check if there are any differences
+          git diff $DEFAULT_BRANCH upstream/$DEFAULT_BRANCH --quiet && {
+            echo "No changes from upstream"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          }
+          
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          
+          # Create sync branch
+          BRANCH_NAME="sync-upstream-$(date +%Y%m%d-%H%M%S)"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          git checkout -b $BRANCH_NAME
+          
+          # Try to merge upstream changes
+          if git merge upstream/$DEFAULT_BRANCH --no-edit; then
+            echo "Merge successful"
+            echo "merge_status=success" >> $GITHUB_OUTPUT
+          else
+            # Merge has conflicts, commit as-is for manual resolution
+            echo "Merge conflicts detected, committing for manual resolution"
+            git add -A
+            git commit -m "Sync with upstream evi0s/WMPFDebugger (conflicts need resolution)"
+            echo "merge_status=conflict" >> $GITHUB_OUTPUT
+          fi
+          
+          # Push the branch
+          git push origin $BRANCH_NAME
+      
+      - name: Create Pull Request
+        if: steps.sync.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.BRANCH_NAME }}
+          title: "🔄 Sync with upstream evi0s/WMPFDebugger"
+          body: |
+            This PR syncs the latest changes from the upstream repository [evi0s/WMPFDebugger](https://github.com/evi0s/WMPFDebugger).
+            
+            **Merge Status**: ${{ steps.sync.outputs.merge_status == 'conflict' && '⚠️ **Has conflicts - manual resolution required**' || '✅ Clean merge' }}
+            
+            **Action Required**: Please review the changes and merge if everything looks good.
+            ${{ steps.sync.outputs.merge_status == 'conflict' && 'This PR contains merge conflicts that need to be resolved manually before merging.' || '' }}
+            
+            - Upstream commits have been merged
+            - This is an automated sync from the upstream repository
+            
+            ---
+            🤖 This PR was created automatically by the Sync Upstream workflow.
+          labels: |
+            sync-upstream
+            automated
+            ${{ steps.sync.outputs.merge_status == 'conflict' && 'merge-conflict' || '' }}
